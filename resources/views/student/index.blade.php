@@ -37,9 +37,15 @@
                             </div>
 
                             <div class="mt-3">
-                            <label class="tx-11 fw-bolder mb-0 text-uppercase text-black">Gender:</label>
-                            <p class="text-muted">{{ $profileData->gender }}
+                            <label class="tx-11 fw-bolder mb-0 text-uppercase text-black">Middle name:</label>
+                            <p class="text-muted">{{ $profileData->middle_name }}
                             </div>
+
+                            <div class="mt-3">
+                            <label class="tx-11 fw-bolder mb-0 text-uppercase text-black">Gender:</label>
+                            <p class="text-muted">{{ $profileData->biological_sex }}
+                            </div>
+                            
                             <div class="mt-3">
                             <label class="tx-11 fw-bolder mb-0 text-uppercase text-black">Age:</</label>
                             <p class="text-muted">{{ $profileData->age }}</p>
@@ -52,32 +58,32 @@
 
                             <div class="mt-3">
                             <label class="tx-11 fw-bolder mb-0 text-uppercase text-black">Course:</label>
-                            <p class="text-muted">{{ $profileData->course }}</p>
+                            <p class="text-muted">{{ $profileData->degree_program_id }}</p>
                             </div>
 
                             <div class="mt-3">
                             <label class="tx-11 fw-bolder mb-0 text-uppercase text-black">Year Level:</label>
-                            <p class="text-muted">{{ $profileData->year_level }}</p>
+                            <p class="text-muted">{{ $profileData->academic_year }}</p>
                             </div>
 
                             <div class="mt-3">
                             <label class="tx-11 fw-bolder mb-0 text-uppercase text-black">PLM Email:</label>
-                            <p class="text-muted">{{ $profileData->email }}</p>
+                            <p class="text-muted">{{ $profileData->plm_email }}</p>
                             </div>
 
                             <div class="mt-3">
                             <label class="tx-11 fw-bolder mb-0 text-uppercase text-black">Contact No.:</label>
-                            <p class="text-muted">{{ $profileData->phone }}</p>
+                            <p class="text-muted">{{ $profileData->mobile_no }}</p>
                             </div>
 
                             <div class="mt-3">
                             <label class="tx-11 fw-bolder mb-0 text-uppercase text-black">Current GWA:</label>
-                            <p class="text-muted">{{ $profileData->current_gwa }}</p>
+                            <p class="text-muted">{{ $profileData->grades }}</p>
                             </div>
 
                             <div class="mt-3">
                             <label class="tx-11 fw-bolder mb-0 text-uppercase text-black">Household Income:</label>
-                            <p class="text-muted">{{ $profileData->household_income }}</p>
+                            <p class="text-muted">{{ $profileData->annual_family_income }}</p>
                             </div>
                             
                         </div>

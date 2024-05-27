@@ -26,11 +26,11 @@
                 </div>
                 <div class="mt-3">
                   <label class="tx-11 fw-bolder mb-0 text-uppercase text-black">Email:</label>
-                  <p class="text-muted">{{ $profileData->email }}</p>
+                  <p class="text-muted">{{ $profileData->plm_email }}</p>
                 </div>
                 <div class="mt-3">
                   <label class="tx-11 fw-bolder mb-0 text-uppercase text-black">Phone:</label>
-                  <p class="text-muted">{{ $profileData->phone }}</p>
+                  <p class="text-muted">{{ $profileData->mobile_no }}</p>
                 </div>
                 <div class="mt-3">
                   <label class="tx-11 fw-bolder mb-0 text-uppercase text-black">Address:</label>
