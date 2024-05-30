@@ -92,7 +92,7 @@
                                                         <div class="flex items-center justify-center">
                                                             <div class="ml-4">
                                                                 <p class="text-gray-900 whitespace-no-wrap uppercase">
-                                                                    {{ $user->phone }}
+                                                                    {{ $user->mobile_no }}
                                                                 </p>
                                                             </div>
                                                         </div>
