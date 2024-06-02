@@ -101,7 +101,7 @@
                                                         <div class="flex items-center justify-center">
                                                             <div class="ml-4">
                                                                 <p class="text-gray-900 whitespace-no-wrap">
-                                                                    {{ $user->current_gwa }}
+                                                                    {{ $user->grades }}
                                                                 </p>
                                                             </div>
                                                         </div>
