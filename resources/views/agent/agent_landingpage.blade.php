@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Admin</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -34,7 +34,7 @@
 	<link rel="stylesheet" href="{{ asset('backend/assets/css/demo2/style.css') }}">
   <!-- End layout styles -->
 
-  <link rel="shortcut icon" href="{{ asset('backend/assets/images/favicon.png') }}" />
+  
 
    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
 

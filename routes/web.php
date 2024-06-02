@@ -20,10 +20,10 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('student.student_login');
 });
 
-
+    
 
 Route::get('/dashboard', function () {
     return view('dashboard');
