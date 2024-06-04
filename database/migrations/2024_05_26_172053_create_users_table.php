@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('biological_sex')->nullable();
             $table->string('age')->nullable();
             $table->string('college')->nullable();
-            $table->string('degree_program_id')->nullable(); 
+            $table->string('degree_program_id')->nullable();
             $table->string('academic_year')->nullable();
             $table->string('plm_email')->nullable();
             $table->string('mobile_no')->nullable();
