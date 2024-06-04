@@ -12,64 +12,8 @@ use App\Models\Pending;
 class AgentController extends Controller
 {
      public function AgentDashboard(){
-        $userData = User::all(); 
-
-        return view('agent.index', compact('userData'));
+        return view('agent.index');
     }// End Method
-
-    
-
-  public function AgentViewFiles(Request $request) {
-    $id = $request->input('selected_users');
-    $userData = Pending::find($id);
-    
-    return view('agent.agent_pending', compact('userData'));
-}
-
-public function getUserDetailsByPhone($name)
-{
-    $user = User::where('name', $name)->first();
-
-    // Handle if user not found or return the user data as needed
-    if (!$user) {
-        return response()->json(['error' => 'User not found'], 404);
-    }
-
-    return response()->json($user);
-}
-
-public function moveSelectedRows(Request $request)
-{
-    // kukuha ng ID
-    $selectedIds = $request->input('selected_users');
-
-    // punta sa "pending" table
-    foreach ($selectedIds as $id) {
-        $user = User::find($id);
-
-        if ($user) {
-            // dadalhin mo yung existing row sa "pending" table
-            Pending::updateOrCreate(
-                ['id' => $id],
-                [
-                    'name' => $user->name,
-                    'year' => $user->year,
-                    'course' => $user->course,
-                    'phone' => $user->phone,
-                    'gwa' => $user->gwa,
-                    'parents_income' => $user->parents_income,
-                ]
-            );
-
-            // uncomment mo pag gusto mo idelete sa pinanggalingan na table
-            // $user->delete();
-        }
-    }
-
-    return redirect()->back()->with('success', 'Selected rows moved successfully.');
-}// End Method
-
-
 
     public function agentlogout(Request $request): RedirectResponse
     {
@@ -91,10 +35,8 @@ public function moveSelectedRows(Request $request)
     }// End Method
 
     public function AgentPending(){
- 
-       $userData = Pending::all(); 
 
-        return view('agent.agent_pending', compact('userData'));
+        return view('agent.agent_pending');
         
     }// End Method 
 

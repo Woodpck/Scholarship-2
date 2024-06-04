@@ -18,22 +18,11 @@ class UsersTableSeeder extends Seeder
     {
         DB::table('users')->insert([
 
-            //admin
+            //agent
             [
                 'name' =>'Admin',
                 'username' => 'admin',
-                'email' => 'admin@gmail.com',
-                'password' => Hash::make('1111'),
-                'role' => 'admin',
-                'status' => 'active',
-                
-            ],
-
-            //agent
-            [
-                'name' =>'Agent',
-                'username' => 'agent',
-                'email' => 'agent@gmail.com',
+                'email' => 'admin@plm.edu.ph',
                 'password' => Hash::make('1111'),
                 'role' => 'agent',
                 'status' => 'active',
@@ -53,7 +42,7 @@ class UsersTableSeeder extends Seeder
             [
                 'name' =>'Student',
                 'username' => 'student',
-                'email' => 'student@gmail.com',
+                'email' => 'student@plm.edu.ph',
                 'password' => Hash::make('1111'),
                 'role' => 'student',
                 'status' => 'active',
@@ -63,7 +52,7 @@ class UsersTableSeeder extends Seeder
             [
                 'name' =>'Opa',
                 'username' => 'opa',
-                'email' => 'opa@gmail.com',
+                'email' => 'opa@plm.edu.ph',
                 'password' => Hash::make('1111'),
                 'role' => 'opa',
                 'status' => 'active',

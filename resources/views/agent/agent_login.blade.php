@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Login</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -29,7 +29,7 @@
               <span class="font-bold">PLM Module</span>
             </h2>
             <h3 class="text-blue-400 text-3xl pl-5 font-normal sm:text-xl">
-              Agent Sign In
+              Student Sign In
             </h3>
               <form class="space-y-4 pt-5 pl-5 pr-5 " action="{{ route('login') }}" method="post">
                 @csrf
