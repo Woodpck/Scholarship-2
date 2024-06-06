@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\ScholarshipUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
@@ -33,14 +33,14 @@ class AdminController extends Controller
 
     public function AdminProfile(){
         $id = Auth::user()->id;
-        $profileData = User::find($id);
+        $profileData = ScholarshipUser::find($id);
         return view('admin.admin_profile_view', compact('profileData'));
 
     }// End Method
 
     public function AdminProfileStore(Request $request){
         $id = Auth::user()->id;
-        $data = User::find($id);
+        $data = ScholarshipUser::find($id);
         $data->username = $request->username;
         $data->name = $request->name;
         $data->email = $request->email;
@@ -67,7 +67,7 @@ class AdminController extends Controller
 
     public function AdminChangePassword(){
         $id = Auth::user()->id;
-        $profileData = User::find($id);
+        $profileData = ScholarshipUser::find($id);
 
         return view('admin.admin_change_password', compact('profileData'));
     }
@@ -93,7 +93,7 @@ class AdminController extends Controller
         }
 
         /// Update The New Password
-        User::whereId(auth()->user()->id)->update([
+        ScholarshipUser::whereId(auth()->user()->id)->update([
             'password' => Hash::make($request->new_password)
         ]);
 

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\User;
+use App\Models\ScholarshipUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
@@ -15,7 +15,7 @@ class studentController extends Controller
 {
     public function studentDashboard(){
         $id = Auth::user()->id;
-        $profileData = User::find($id);
+        $profileData = ScholarshipUser::find($id);
         return view('student.index', compact('profileData'));
 
         
@@ -38,7 +38,7 @@ class studentController extends Controller
 
     public function StudentProfile(){
         $id = Auth::user()->id;
-        $profileData = User::find($id);
+        $profileData = ScholarshipUser::find($id);
         return view('student.student_profile_view', compact('profileData'));
 
     }// End Method   
@@ -58,7 +58,7 @@ class studentController extends Controller
 
     public function StudentProfileStore(Request $request){
         $id = Auth::user()->id;
-        $data = User::find($id);
+        $data = ScholarshipUser::find($id);
         $data->username = $request->username;
         $data->name = $request->name;
         $data->email = $request->email;
@@ -87,7 +87,7 @@ class studentController extends Controller
     
     public function uploadFile(Request $request){
         $id = Auth::user()->id;
-        $data = User::find($id);
+        $data = ScholarshipUser::find($id);
         
         $fields = ['grade_file' => 'grade_file', 'gmc_cert' => 'gmc_cert', 'tax' => 'tax', 
         'reason_letter'=>'reason_letter', 'id_reg_form'=>'id_reg_form', 
@@ -115,7 +115,7 @@ class studentController extends Controller
 
     public function StudentStatus(Request $request){
         $id = Auth::user()->id;
-        $profileData = User::find($id);
+        $profileData = ScholarshipUser::find($id);
         
         return view('student.status',compact('profileData'));
     }// End Method 
@@ -124,7 +124,7 @@ class studentController extends Controller
     public function StudentChangePassword(){
         
         $id = Auth::user()->id;
-        $profileData = User::find($id);
+        $profileData = ScholarshipUser::find($id);
 
         return view('student.student_change_password', compact('profileData'));
     }
@@ -151,7 +151,7 @@ class studentController extends Controller
         }
 
         /// Update The New Password
-        User::whereId(auth()->user()->id)->update([
+        ScholarshipUser::whereId(auth()->user()->id)->update([
             'password' => Hash::make($request->new_password)
         ]);
 
