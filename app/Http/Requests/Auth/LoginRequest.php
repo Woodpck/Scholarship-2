@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
-use App\Models\User;
+use App\Models\ScholarshipUser;
 use Illuminate\Support\Facades\Hash;
 
 use function Laravel\Prompts\password;
@@ -45,7 +45,7 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        $user = User::where('email',$this->login)
+        $user = ScholarshipUser::where('email',$this->login)
                     ->orWhere('name',$this->login)
                     ->orWhere('mobile_no',$this->login)
                     ->first();

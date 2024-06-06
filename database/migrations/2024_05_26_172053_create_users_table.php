@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('scholarship_users', function (Blueprint $table) {
             //student information field names from the data dictionary
             $table->string('student_no')->nullable();
             $table->string('last_name')->nullable();
@@ -58,6 +58,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('scholarship_users');
     }
 };

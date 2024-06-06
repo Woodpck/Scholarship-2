@@ -10,7 +10,7 @@ use Tests\Feature\ExampleTest;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
  */
-class UserFactory extends Factory
+class ScholarshipUserFactory extends Factory
 {
     /**
      * The current password being used by the factory.
