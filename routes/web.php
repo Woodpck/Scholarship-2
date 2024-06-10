@@ -158,5 +158,10 @@ Route::get('/student/login', [studentController::class, 'StudentLogin'])->name('
 Route::get('/opa/login', [opaController::class, 'OpaLogin'])->name('opa.login');
 
 
+use App\Http\Controllers\RoleController;
+
+Route::get('/change-role/{role}', [RoleController::class, 'changeRole'])->name('change-role');
+Route::get('/student-dashboard', [RoleController::class, 'studentDashboard'])->name('student-dashboard');
+Route::get('/admin-dashboard', [RoleController::class, 'adminDashboard'])->name('admin-dashboard');
 
 
