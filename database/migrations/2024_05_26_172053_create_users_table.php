@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('academic_year')->nullable();
             $table->string('plm_email')->nullable();
             $table->string('mobile_no')->nullable();
+            $table->string('phone')->nullable();
             $table->decimal('grades', 4, 2)->nullable(); //formerly current_gwa
             $table->decimal('annual_family_income', 10, 2)->nullable();
             //student information field that is questionable

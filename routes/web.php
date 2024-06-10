@@ -20,26 +20,20 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return view('student.student_login');
+    return view('student.student_dashboard');
 });
 
     
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+});
 
-Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-require __DIR__.'/auth.php';
 
 //Admin Group Middleware
-Route::middleware(['auth','role:admin'])->group(function(){
-
     Route::get('/admin/dashboard', [AdminController::class, 
     'AdminDashboard'])->name('admin.dashboard');
 
@@ -58,10 +52,7 @@ Route::middleware(['auth','role:admin'])->group(function(){
     Route::post('/admin/update/password', [AdminController::class, 
     'AdminUpdatePassword'])->name('admin.update.password');
 
-});// End Group Admin Middleware
-
 //Student Group Middleware
-Route::middleware(['auth','role:student'])->group(function(){
     
     Route::get('/student/dashboard', [studentController::class, 
     'StudentDashboard'])->name('student.dashboard');
@@ -78,11 +69,13 @@ Route::middleware(['auth','role:student'])->group(function(){
     Route::get('/student/applystatus', [studentController::class,     
     'StudentStatus'])->name('student.status');
 
-    Route::get('/student/who_may_apply', [studentController::class, 
-    'StudentWho_may_apply'])->name('student.who_may_apply');
+    
+    Route::get('/who-may-apply', [StudentController::class,
+    'studentWhoMayApply'])->name('student.who_may_apply');
 
-    Route::get('/student/additional_req', [studentController::class, 
-    'StudentAdditional_req'])->name('student.additional_req');
+    Route::get('/additional-requirements', [StudentController::class,
+    'studentAdditionalReq'])->name('student.additional_req');
+
 
     Route::post('/student/profile/store', [studentController::class, 
     'studentProfileStore'])->name('student.profile.store');
@@ -96,13 +89,9 @@ Route::middleware(['auth','role:student'])->group(function(){
     Route::post('/student/update/password', [studentController::class, 
     'StudentUpdatePassword'])->name('student.update.password');
    
-    
 
-
-});// End Group Student Middleware
 
 //Agent Group Middleware
-Route::middleware(['auth','role:agent'])->group(function(){
 
     Route::get('/agent/landingpage', [AgentController::class, 
     'AgentDashboard'])->name('agent.dashboard');
@@ -135,9 +124,6 @@ Route::middleware(['auth','role:agent'])->group(function(){
     'getUserDetailsByPhone'])->name('get.user.details');
 
 
-});// End Group Agent Middleware
-
-Route::middleware(['auth','role:opa'])->group(function(){
 
     Route::get('/opa/dashboard', [OpaController::class, 
     'OpaDashboard'])->name('opa.dashboard');
@@ -145,7 +131,6 @@ Route::middleware(['auth','role:opa'])->group(function(){
     Route::get('/opa/logout', [opaController::class, 
     'OpaLogout'])->name('opa.logout');
 
-});
 
 
 

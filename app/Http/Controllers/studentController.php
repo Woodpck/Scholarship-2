@@ -2,169 +2,181 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\ScholarshipUser;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
-use App\Models\File;
-use PhpParser\Node\Stmt\Echo_;
 
-class studentController extends Controller
+class StudentController extends Controller
 {
-    public function studentDashboard(){
-        $id = Auth::user()->id;
-        $profileData = ScholarshipUser::find($id);
-        return view('student.index', compact('profileData'));
+    protected $defaultUserId = 3;  // Hard-coded user ID for testing
 
-        
-    }// End Method
-
-    public function studentlogout(Request $request): RedirectResponse
+    public function studentDashboard()
     {
-        Auth::guard('web')->logout();
-
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
-        return redirect('/student/login');
-    }// End Method
-
-     public function StudentLogin(){
-        return view('student.student_login');
-    }// End Method
-
-    public function StudentProfile(){
-        $id = Auth::user()->id;
+        $id = $this->defaultUserId;
         $profileData = ScholarshipUser::find($id);
+
+        if (!$profileData) {
+            return redirect()->back()->withErrors(['error' => 'User not found']);
+        }
+
+        return view('student.index', compact('profileData'));
+    } // End Method
+
+    public function studentLogout(Request $request)
+    {
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/student/login');
+    } // End Method
+
+    public function studentLogin()
+    {
+        return view('student.student_login');
+    } // End Method
+
+    public function studentProfile()
+    {
+        $id = $this->defaultUserId;
+        $profileData = ScholarshipUser::find($id);
+
+        if (!$profileData) {
+            return redirect()->back()->withErrors(['error' => 'User not found']);
+        }
+
         return view('student.student_profile_view', compact('profileData'));
+    } // End Method
 
-    }// End Method   
-
-     public function StudentApply(){
+    public function studentApply()
+    {
         return view('student.student_apply');
-    }// End Method 
+    } // End Method
 
-    public function StudentWho_may_apply(){
+    public function studentWhoMayApply()
+    {
         return view('student.who_may_apply');
-    }// End Method 
+    } // End Method
 
-    public function StudentAdditional_req(){
-
+    public function studentAdditionalReq()
+    {
         return view('student.additional_req');
-    } // End Method 
+    } // End Method
 
-    public function StudentProfileStore(Request $request){
-        $id = Auth::user()->id;
+    public function studentProfileStore(Request $request)
+    {
+        $id = $this->defaultUserId;
         $data = ScholarshipUser::find($id);
+
+        if (!$data) {
+            return redirect()->back()->withErrors(['error' => 'User not found']);
+        }
+
         $data->username = $request->username;
         $data->name = $request->name;
         $data->email = $request->email;
         $data->phone = $request->phone;
         $data->address = $request->address;
-        
-        if($request->file('photo')){
+
+        if ($request->file('photo')) {
             $file = $request->file('photo');
-            @unlink(public_path('upload/student_images/'.$data->photo));
-            $filename = date('YmdHi').$file->getClientOriginalName();
-            $file->move(public_path('upload/student_images'),$filename);
+            @unlink(public_path('upload/student_images/' . $data->photo));
+            $filename = date('YmdHi') . $file->getClientOriginalName();
+            $file->move(public_path('upload/student_images'), $filename);
             $data->photo = $filename;
-            // $data['photo']->$filename;
         }
         $data->save();
-        
-        $notification = array(
+
+        $notification = [
             'message' => 'Profile Updated Successfully',
             'alert-type' => 'success'
-        );
+        ];
 
         return redirect()->back()->with($notification);
-    } // End Method 
+    } // End Method
 
-    
-    
-    public function uploadFile(Request $request){
-        $id = Auth::user()->id;
+    public function uploadFile(Request $request)
+    {
+        $id = $this->defaultUserId;
         $data = ScholarshipUser::find($id);
-        
-        $fields = ['grade_file' => 'grade_file', 'gmc_cert' => 'gmc_cert', 'tax' => 'tax', 
-        'reason_letter'=>'reason_letter', 'id_reg_form'=>'id_reg_form', 
-        'form_with_pic' => 'form_with_pic', 'single_parent_id'=>'single_parent_id', 'brg_cert'=>'brg_cert'];
 
-        foreach ($fields as $field => $fileKey) {
-            if($request->hasFile($fileKey)){
-                $file = $request->file($fileKey);
-                $filename = date('YmdHi').$file->getClientOriginalName();
-                $file->move(public_path('upload/student_File_Uploads'),$filename);
+        if (!$data) {
+            return redirect()->back()->withErrors(['error' => 'User not found']);
+        }
+
+        $fields = ['grade_file', 'gmc_cert', 'tax', 'reason_letter', 'id_reg_form', 'form_with_pic', 'single_parent_id', 'brg_cert'];
+
+        foreach ($fields as $field) {
+            if ($request->hasFile($field)) {
+                $file = $request->file($field);
+                $filename = date('YmdHi') . $file->getClientOriginalName();
+                $file->move(public_path('upload/student_File_Uploads'), $filename);
                 $data->{$field} = $filename;
             }
         }
-        
+
         $data->save();
-        
-        $notification = array(
+
+        $notification = [
             'message' => 'Files Uploaded Successfully',
             'alert-type' => 'success'
-        );
+        ];
 
         return redirect()->back()->with($notification);
-    } // End Method 
+    } // End Method
 
-
-    public function StudentStatus(Request $request){
-        $id = Auth::user()->id;
-        $profileData = ScholarshipUser::find($id);
-        
-        return view('student.status',compact('profileData'));
-    }// End Method 
-    
-
-    public function StudentChangePassword(){
-        
-        $id = Auth::user()->id;
+    public function studentStatus()
+    {
+        $id = $this->defaultUserId;
         $profileData = ScholarshipUser::find($id);
 
-        return view('student.student_change_password', compact('profileData'));
-    }
-
-
-    public function StudentUpdatePassword(Request $request){
-
-        //validation
-        $request->validate([
-            'old_password' => 'required',
-            'new_password' => 'required|confirmed' 
-        ]);
-
-        /// Match the old Password
-
-        if (!Hash::check($request->old_password, auth::user()->password)) {
-            
-            $notification = array(
-            'message' => 'Old Password Does not Match!',
-            'alert-type' => 'error' 
-        );
-
-        return back()->with($notification);
+        if (!$profileData) {
+            return redirect()->back()->withErrors(['error' => 'User not found']);
         }
 
-        /// Update The New Password
-        ScholarshipUser::whereId(auth()->user()->id)->update([
-            'password' => Hash::make($request->new_password)
+        return view('student.status', compact('profileData'));
+    } // End Method
+
+    public function studentChangePassword()
+    {
+        $id = $this->defaultUserId;
+        $profileData = ScholarshipUser::find($id);
+
+        if (!$profileData) {
+            return redirect()->back()->withErrors(['error' => 'User not found']);
+        }
+
+        return view('student.student_change_password', compact('profileData'));
+    } // End Method
+
+    public function studentUpdatePassword(Request $request)
+    {
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|confirmed'
         ]);
 
-        $notification = array(
-            'message' => 'Password Change Successfully!',
-            'alert-type' => 'success' 
-        );
+        $id = $this->defaultUserId;
+        $user = ScholarshipUser::find($id);
+
+        if (!$user) {
+            return back()->withErrors(['error' => 'User not found']);
+        }
+
+        if (!Hash::check($request->old_password, $user->password)) {
+            $notification = [
+                'message' => 'Old Password Does not Match!',
+                'alert-type' => 'error'
+            ];
+
+            return back()->with($notification);
+        }
+
+        $user->update(['password' => Hash::make($request->new_password)]);
+
+        $notification = [
+            'message' => 'Password Changed Successfully!',
+            'alert-type' => 'success'
+        ];
 
         return back()->with($notification);
-        
-      
-
-    }//End Method
-    
+    } // End Method
 }
-
