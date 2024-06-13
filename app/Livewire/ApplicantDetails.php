@@ -2,59 +2,50 @@
 
 namespace App\Livewire;
 
-use App\Models\Applicant;
-use App\Models\QualifiedApplicant;
 use Livewire\Component;
-use Livewire\WithPagination;
+use App\Models\Applicant; // Adjust this to match your Applicant model namespace
 
-class CompletedRequirementstable extends Component
+class ApplicantDetails extends Component
 {
-    use WithPagination;
+    public $applicant = null; // Initialize applicant to null or empty
 
-    public $searchName = '';
-    public $searchCourse = '';
-    public $selectedRows = [];
+    protected $listeners = ['showApplicantDetails'];
 
-    public function updatingSearchName()
+    public function showApplicantDetails($applicantId)
     {
-        $this->resetPage();
-    }
+        $this->applicant = applicant::find($applicantId); // Adjust based on your model name
 
-    public function updatingSearchCourse()
-    {
-        $this->resetPage();
-    }
-
-    public function moveSelectedApplicants()
-    {
-        foreach ($this->selectedRows as $applicantId) {
-            QualifiedApplicant::create([
-                'applicant_id' => $applicantId,
-            ]);
+        if (!$this->applicant) {
+            // Handle case where applicant is not found, perhaps redirect or show an error
+            abort(404, 'Applicant not found');
         }
 
-        // Clear selectedRows array after moving
-        $this->selectedRows = [];
+        // Emit an event to notify that applicant details are shown
+        $this->emit('applicantDetailsShown', $this->applicant);
+    }
 
-        // Optionally, you can add a success message or perform any other actions here
-        session()->flash('message', 'Selected applicants moved to Qualified Applicants.');
+    public function updateApplicantStatus()
+    {
+        if ($this->selectedOption === 'approve') {
+            $this->applicant->remarks = 'approved';
+            $this->applicant->save();
+        } elseif ($this->selectedOption === 'resubmit') {
+            if ($this->applicant->remarks === 'pending') {
+                $this->applicant->remarks = 'resubmission';
+                $this->applicant->save();
+            }
+        } elseif ($this->selectedOption === 'disapprove') {
+            $this->applicant->delete();
+        }
+
+        // Close the modal and refresh the page or component
+        $this->dispatchBrowserEvent('closeStudentDialog');
+        $this->emit('refreshApplicantsList');
     }
 
     public function render()
     {
-        $applicants = Applicant::query()
-            ->where('remarks', 'approved')
-            ->when($this->searchName, function ($query) {
-                $query->where(function ($q) {
-                    $q->where('last_name', 'like', $this->searchName . '%');
-                });
-            })
-            ->when($this->searchCourse, function ($query) {
-                $query->where('course', 'like', $this->searchCourse . '%');
-            })
-            ->paginate(5);
-
-        return view('livewire.completed-requirementstable', compact('applicants'));
+        return view('livewire.applicant-details');
     }
 }
 
