@@ -50,7 +50,9 @@ class CompletedRequirementstable extends Component
     }
 
     public function render()
-    {
+    {   
+        $selectedIds = implode(',', $this->selectedRows);
+
         $applicants = Applicant::query()
             ->where('remarks', 'approved')
             ->when($this->searchName, function ($query) {
@@ -60,8 +62,13 @@ class CompletedRequirementstable extends Component
             })
             ->when($this->searchCourse, function ($query) {
                 $query->where('course', 'like', $this->searchCourse . '%');
-            })
-            ->paginate(5);
+            });
+
+        if (!empty($this->selectedRows)) {
+            $applicants = $applicants->orderByRaw("FIELD(id, $selectedIds) DESC");
+        }
+        
+        $applicants = $applicants->paginate(5);
 
         return view('livewire.completed-requirementstable', compact('applicants'));
     }

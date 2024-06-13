@@ -11,9 +11,9 @@ class ApplicantDetails extends Component
 
     protected $listeners = ['showApplicantDetails'];
 
-    public function showApplicantDetails($applicantId)
+    public function showApplicantDetails($id)
     {
-        $this->applicant = applicant::find($applicantId); // Adjust based on your model name
+        $this->applicant = applicant::find($id); // Adjust based on your model name
 
         if (!$this->applicant) {
             // Handle case where applicant is not found, perhaps redirect or show an error
