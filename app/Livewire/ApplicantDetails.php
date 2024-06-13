@@ -25,15 +25,6 @@ class CompletedRequirementstable extends Component
         $this->resetPage();
     }
 
-    public function toggleSelected($applicantId)
-    {
-        if (in_array($applicantId, $this->selectedRows)) {
-            $this->selectedRows = array_diff($this->selectedRows, [$applicantId]);
-        } else {
-            $this->selectedRows[] = $applicantId;
-        }
-    }
-
     public function moveSelectedApplicants()
     {
         foreach ($this->selectedRows as $applicantId) {
@@ -66,3 +57,4 @@ class CompletedRequirementstable extends Component
         return view('livewire.completed-requirementstable', compact('applicants'));
     }
 }
+

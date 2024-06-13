@@ -41,9 +41,6 @@ class Applicant extends Model
     ];
 
     public function scopeSearch($query, $value){
-        $query->where('last_name','like',"%{$value}%")
-            ->orwhere('middle_name','like',"%{$value}%")
-            ->orwhere('first_name','like',"%{$value}%")
-            ->orWhereRaw("CONCAT(last_name, ', ', first_name, ' ', middle_name) LIKE ?", ["%{$value}%"]);
+        $query->where('last_name','like',"{$value}%");
     }
 }

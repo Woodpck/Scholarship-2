@@ -19,7 +19,6 @@
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                             <tr></tr>
-                            <th scope="col" class="px-4 py-3">#</th>
                             <th scope="col" class="px-4 py-3">STUDENT NAME</th>
                             <th scope="col" class="px-4 py-3">STUDENT NUMBER</th>
                             <th scope="col" class="px-4 py-3">STATUS</th>
@@ -27,21 +26,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($applicants as $applicant)
+                            @foreach ($qualifiedApplicants as $applicant)
                             <tr wire:key="{{ $applicant->id }}" class="border-b dark:border-gray-700">
-                                <td class="px-2 py-2">{{ $applicant->id }}</td>
                                 <th scope="row" class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap">
-                                    {{ $applicant->last_name }}, {{ $applicant->first_name }} {{ $applicant->middle_name }}
+                                    {{ $applicant->applicant->last_name }}, {{ $applicant->applicant->first_name }} {{ $applicant->applicant->middle_name }}
                                 </th>
-                                <td class="px-2 py-2">{{ $applicant->student_no }}</td>
+                                <td class="px-2 py-2">{{ $applicant->applicant->student_no }}</td>
                                 <td class="px-2 py-2">
                                     <span class="inline-block px-3 py-1 rounded-full font-semibold text-sm
-                                            @if($applicant->remarks === 'pending') bg-yellow-100 text-yellow-800
-                                            @elseif($applicant->remarks === 'resubmission') bg-orange-200 text-orange-800
-                                            @elseif($applicant->remarks === 'approved') bg-green-100 text-green-800
-                                            @elseif($applicant->remarks === 'scholar') bg-green-300 text-green-800
+                                            @if($applicant->applicant->remarks === 'pending') bg-yellow-100 text-yellow-800
+                                            @elseif($applicant->applicant->remarks === 'resubmission') bg-orange-200 text-orange-800
+                                            @elseif($applicant->applicant->remarks === 'approved') bg-green-100 text-green-800
+                                            @elseif($applicant->applicant->remarks === 'scholar') bg-green-300 text-green-800
                                             @endif">
-                                        {{ strtoupper($applicant->remarks) }}
+                                        {{ strtoupper($applicant->applicant->remarks) }}
                                     </span>
                                 </td>
                                 <td class="px-2 py-2">
@@ -144,11 +142,17 @@
                                                         </div>
 
                                                         <!-- Additional Grid for Approval Options -->
-                                                        <div class="grid grid-cols-3 gap-4">
-                                                            <p>qualified as a scholar? (y/n) button here</p>
+                                                        <div class="pr-2 pt-4">
+                                                            <p>Remarks:</p>
+                                                            <p>Did the applicant passed the scholarship application?</p>
                                                         </div>
-                                                        <div class="col-span-3 bg-white p-4 rounded-md">
-                                                            <p>here</p>
+                                                        <div class="pr-2 pt-4">
+                                                            <button class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                                                Yes
+                                                            </button>
+                                                            <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                                                No
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -184,14 +188,14 @@
                 </div>
                 <div class="py-4 px-3">
 
-                    {{ $applicants->links() }}
+                    {{ $qualifiedApplicants->links() }}
                 </div>
             </div>
         </div>
     </section>
 
- <!-- script for viewing student info -->
- <script>
+    <!-- script for viewing student info -->
+    <script>
         // Function to show the student dialog
         function showStudentDialog() {
             document.getElementById('studentDialog').classList.remove('hidden');
