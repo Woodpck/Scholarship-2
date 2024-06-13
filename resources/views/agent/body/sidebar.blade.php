@@ -3,9 +3,9 @@
 <div class="lg:flex lg:flex-row lg:h-full lg:w-full">
             <!-- Sidebar -->
             <div class="lg:w-1/5 flex flex-col w-full bg-black">
-                <div class="flex flex-col justify-between bg-blue-800 h-full items-center space-y-4">
+                <div class="flex flex-col justify-between bg-indigo-800 h-full items-center space-y-4">
                     <div class="bg-blue-800 flex flex-col justify-around items-center h-full w-full space-y-3">
-                        <h1 class="text-3xl font-bold pt-5 lg:p-0 text-white">PLM ADMIN</h1>
+                        <h1 class="text-3xl font-bold pt-5 lg:p-0 text-white">PLM SCHOLARSHIP</h1>
                   
 
                         <div class="lg:w-full sm:w-1/3 w-full">
@@ -24,7 +24,7 @@
                             <div id="candidateDropdownContent" class="hidden origin-top-right ml-10 right-0 mt-2 w-60 rounded-md shadow-lg bg-blue-800 ring-1 ring-black ring-opacity-5">
                                 <div class="py-1">
                                     <a href="{{ route('agent.lstofstdnts') }}" class="block px-4 py-2 text-sm text-white hover:bg-blue-700" onclick="changeContentbyDropdown('List of Students', 'btnListofStuds')">
-                                        <li>List of Applicant</li>
+                                        <li>Applicant list</li>
                                     </a>
                                     <a href="{{ route('agent.pending') }}" class="block px-4 py-2 text-sm text-white hover:bg-blue-700" onclick="changeContentbyDropdown('Pending', 'btnPending')">
                                         <li>Pending</li>

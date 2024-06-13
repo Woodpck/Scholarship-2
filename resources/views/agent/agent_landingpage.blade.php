@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>PLM Scholarship</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -42,7 +42,7 @@
     @vite('resources/css/app.css')
 </head>
 
-<body class="antialiased" style="background-image: url('../upload/bg.png'); background-size: cover; background-repeat: no-repeat; background-position: center center;" class="lg:min-h-screen">
+<body class="antialiased" style="background-color: white;">
 
     <div class="lg:flex lg:flex-col lg:h-screen">
         <!-- Top Navbar -->
@@ -54,7 +54,7 @@
             @include('agent.body.sidebar')
 
 
-            <div class="bg-white mx-11 my-5 lg:mx-auto lg:my-auto h-5/6 lg:w-3/4 rounded-md shadow-2xl">
+            <div class="bg-white mx-11 my-5 lg:mx-auto lg:my-auto h-5/6 lg:w-3/4">
                 @include('agent.body.categories')
 
                 <div class = "mx-1 my-2">

@@ -1,5 +1,5 @@
 
-<nav class="bg-white flex flex-col items-center justify-around py-0 lg:flex lg:flex-row lg:items-center lg:justify-around lg:py-4">
+<nav class="bg-white rounded-md shadow-md flex flex-col items-center justify-around py-0 lg:flex lg:flex-row lg:items-center lg:justify-around lg:py-4">
         <div class="flex items-center max-w-lg">
             <img src="../upload/plmlogo-header.png" alt="" class="mr-4 max-h-20">
         </div>
